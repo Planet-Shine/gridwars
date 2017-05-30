@@ -1,0 +1,203 @@
+
+<div class="page-data" style="display: none;" data-page-info='{"title": "Тестирование программы искусственного интеллекта робота"}'></div>
+<div class="back-block">
+    <a href="/<%= language -%>/article">
+        &lt Статьи
+    </a>
+</div>
+<h1>Тестирование программы искусственного интеллекта робота</h1>
+<p>
+    Вы можете сделать свой вариант тестирования робота на NodeJS или с использованием инструментов тестирования.
+    В этой статье я расскажу, как проверить работу робота самым доступным образом — через написание html страницы.
+</p>
+<p>
+    Итак, текст страницы для тестирования будет выглядеть так:
+</p>
+<pre><code class="html">&lt!DOCTYPE html&gt
+&lthtml&gt
+&lthead&gt
+    &lttitle&gtТестирование робота&lt/title&gt
+    &ltscript type="text/javascript"&gt
+        var cellHandler,
+            name,
+            global = {};
+
+        global.register = function (aCellHandler, aName) {
+            cellHandler = aCellHandler;
+            name        = aName;
+        }
+    &lt/script&gt
+    &ltscript type="text/javascript" src="/warrior/cycletron.js"&gt&lt/script&gt
+    &ltscript type="text/javascript"&gt
+        (function () {
+            var expectedName     = 'cycletron',
+                comvarTestReg    = /^[01]{32}$/,
+                warriorTestInput = [
+                    [
+                        0, 0, 0, 0, "00000000000000000000000000000000", 0, 0, 0, 0
+                    ], // 1
+                    [
+                        "11000001101000011010000000000000", "11011011111000011010000000000000", "00000000000000000000000000000000", "10000001101000011010000000000000", "11000001101000011010000000000000", 1, "10000001101000011010000000000000", "10000001101000011010000000000000", "11000001101000011010000000000000"
+                    ], // 2
+                    [
+                        "11011011101000011010000000000000", 1, 1, "10011011101000011010000000000000", "11011011101000011010000000000000", "00000000000000000000000000000000", "10011011101000011010000000000000", "11000001101000011010000000000000", "11011011111000011010000000000000"
+                    ],
+                    [// 3
+                        "10011011101110111010000000000000", "10011011101110111010000000000000", "10011011101110111010000000000000", "10011011101110111010000000000000", "10011011101110111010000000000000", "10011011101110111010000000000000", "10011011100000000010000000000000", "10011011101110111010000000000000", "10011011101110111010000000000000"
+                    ], // 4
+                    [
+                        4, "11011011010110111010000000000000", "11011011100110111010000000000000", 4, "00000000000000000000000000000000", "11011011101000011010000000000000", "11011011011000011010000000000000", "11011011101000011010000000000000", "11011011101000011010000000000000"
+                    ], // 5
+                    [
+                        4, "11000001100000011010000000000000", "11000001100000011010000000000000", 4, "00000000000000000000000000000000", "00000000000000000000000000000000", 4, 4, "11011011010110111010000000000000"
+                    ], // 6
+                    [
+                        "11111011101110111110000000000000", 4, 4, "11111011111110111010000000000000", "00000000000000000000000000000000", 4, "11111011111110111010000000000000", "11111011111110111010000000000000", "11111011111110111010000000000000"
+                    ], // 7
+                    [
+                        "10000001111100010110000000000000", 0, 1, "00000000000000000000000000000000", "00000000000000000000000000000000", 0, "10000001101100010110000000000000", 0, 0
+                    ]  // 8
+                ],
+                expectedPossibleResults = [
+                    [
+                        [0, 0, 0, "10000000000000000010000000000000"]
+                    ],
+                    [
+                        [5, 5, 2, "11011011101110111010000000000000"]
+                    ],
+                    [
+                        [1, 1, 1, "11000001101110111010000000000000"]
+                    ],
+                    [
+                        [2, 2, 2, "10000001101000011010000000000000"]
+                    ],
+                    [
+                        [0, 0, 0, "11000001100000011010000000000000"]
+                    ],
+                    [
+                        [0, 0, 0, "11011011100110111110000000000000"]
+                    ],
+                    [
+                        [5, 5, 5, "11100001101000011010000000000000"]
+                    ],
+                    [
+                        [2, 2, 2, "11011100001111010010000000000000"]
+                    ]
+                ],
+                isPassed,
+                result,
+                index,
+                length,
+                index2,
+                length2;
+
+
+
+            function isValidShootResult (result) {
+                function isValidComvar32BitWord (comvar) {
+                    if (comvarTestReg.test(comvar)) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+
+                function isValidNeighborIndex (index) {
+                    if (index &gt 8 || index &lt 0 || index === 4) {
+                        return false;
+                    } else {
+                        return true;
+                    }
+                }
+                if (!(result instanceof Array)) {
+                    return false;
+                }
+                if (result.length !== 4) {
+                    return false;
+                }
+                if (!isValidComvar32BitWord(result[3])) {
+                    return false;
+                }
+                if (!isValidNeighborIndex(result[0])) {
+                    return false;
+                }
+                if (!isValidNeighborIndex(result[1])) {
+                    return false;
+                }
+                if (!isValidNeighborIndex(result[2])) {
+                    return false;
+                }
+                return true;
+            }
+
+            if (expectedName === name) {
+                console.log('name passed');
+            } else {
+                console.log('name failed');
+            }
+
+            if (typeof cellHandler === 'function') {
+                console.log('cellHandler is function passed');
+            } else {
+                console.log('cellHandler is function failed');
+            }
+
+
+            length = warriorTestInput.length;
+            for (index = 0; index &lt length; index += 1) {
+                result  = cellHandler(warriorTestInput[index]);
+                length2 = expectedPossibleResults.length;
+                if (!isValidShootResult(result)) {
+                    console.log('result validation of test with input № ' + index /*+ '(' + String(warriorTestInput[index])*/ + ') failed');
+                } else {
+                    console.log('result validation of test with input № ' + index /*+ '(' + String(warriorTestInput[index])*/ + ') passed');
+                }
+                for (index2 = 0; index2 &lt length2; index2 += 1) {
+                    if (String(expectedPossibleResults[index2]) === String(result)) {
+                        isPassed = true;
+                        console.log('test with input № ' + index /*+ '(' + String(warriorTestInput[index])*/ + ') passed');
+                        break;
+                    }
+                }
+                if (!isPassed) {
+                    console.log('test with input № ' + index /*+ '(' + String(warriorTestInput[index])*/ + ') failed');
+                }
+            }
+
+        }());
+    &lt/script&gt
+&lt/head&gt
+&ltbody&gt
+
+&lt/body&gt
+&lt/html&gt</code></pre>
+<p>
+    На странице размещено три скрипта.
+    Первый скрипт — это скрипт, позволяющий зарегистрировать робота.
+    Второй скрипт — это ваш робот. И третий — это тестирующий скрипт.
+</p>
+
+<p>
+    Сначала проводятся 2 теста на то, что имя и обработчик ячейки установлены правильно, а далее происходит тестирование.
+</p>
+
+<p>
+    Массив входных значений warriorTestInput хранить те значение, что будут подаваться на вход функции. А массив expectedPossibleResults хранит массив, каждый элемент которого связан массивом входных параметров и является по своей сути набором возможных ответов функции обработчика ячейки. Вероятно, что ваш робот будет однозначно реагировать на входные параметры, тогда в массив возможных исходов следует поместить одно значение результата работы функции обрабочика.
+</p>
+
+<p>
+    Далее в цикле осуществляется тестирование согласно warriorTestInput и expectedPossibleResults. Перед проверкой на соответствие результату проверяется валидность ответа посредствам функции isValidShootResult, что объявлена немного выше. Эта функция проверяет то, как ответ обработчика ячейки соответствует общим правилам игры.
+</p>
+
+<p style="overflow:auto;">
+    В итоге у меня получился такой вывод:
+    <img style="width: 600px; height: 556px;display: block;margin:0 auto;" src="/screens/test-sample.jpg" />
+</p>
+
+<p>
+    Все удачно. Вы так же можете детально проследить, как функционирует обработчик ячейки внутри, воспользовавшись инструментами динамической отладки браузера. Для этого установите точки останова в файле с описанием робота и дождитесь их срабатываний по обновлению страницы.
+</p>
+
+<p>
+    Успешного тестирования.
+</p>

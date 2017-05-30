@@ -1,0 +1,6 @@
+{
+    "uid" : "gridwars",
+    "script" : "server.js",
+    "sourseDir" : "C:/projects/gridwars",
+    "append" : true
+}

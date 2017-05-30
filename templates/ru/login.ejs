@@ -1,0 +1,12 @@
+<% layout('./layout/page') -%>
+<% var pageTitle = 'Вход'; %>
+<% block('title', pageTitle) -%>
+<% block('keywords', 'Gridwars, авторизация,пользователь,вход,логин,пароль,восстановление пароля,доступ,возможности,права') -%>
+<% block('description', 'Страница входа пользователей Gridwars. Форма ввода логина и пароля, а так же возможность восстановить пароль. Авторизованные пользователи могут загружать собственные интеллекты Gridwars для участия в сражениях.') -%>
+
+<%-partial('./partial/partial-page', {
+    'path'           : path,
+    'page'           : page,
+    'partialOptions' : partialOptions,
+    'title'          : pageTitle
+})%>

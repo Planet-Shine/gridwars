@@ -1,0 +1,12 @@
+<% layout('./layout/page') -%>
+<% var pageTitle = 'История игры программирования Gridwars'; %>
+<% block('title', pageTitle) -%>
+<% block('keywords', 'история,о игре,Gridwars,искусственный интелект,AI,бой на сетке,сражениие искусственных интеллектов') -%>
+<% block('description', 'История игры Gridwars. Соревнование, которое должно было продвинуть продукт под названием CxC, язык параллельного программирования, было впервые анонсировано в ноябре 2002 компанией Engineered Intelligence (EI).') -%>
+
+<%-partial('./partial/partial-page', {
+    'path'           : path,
+    'page'           : page,
+    'partialOptions' : partialOptions,
+    'title'          : pageTitle
+})%>

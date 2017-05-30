@@ -1,0 +1,13 @@
+<% layout('./layout/page') -%>
+<% var pageTitle = 'Праметры боя игры'; %>
+<% block('title', pageTitle) -%>
+<% block('keywords', 'битва, сражение, искусственный интеллект,Gridwars,настройки,установки,ввод параметров,новое сражение') -%>
+<% block('description', 'Установка параметров битвы Gridwars. Установите размер поля боя, выберите роботов и запустите битву искусственных интеллектов на сетке.') -%>
+
+
+<%-partial('./partial/partial-page', {
+    'path'           : path,
+    'page'           : page,
+    'partialOptions' : partialOptions,
+    'title'          : pageTitle
+})%>

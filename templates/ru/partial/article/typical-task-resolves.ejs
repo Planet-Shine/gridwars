@@ -1,0 +1,165 @@
+
+<div class="page-data" style="display: none;" data-page-info='{"title": "Решение типичных задач во время написания алгоритма"}'></div>
+<div class="back-block">
+    <a href="/<%= language -%>/article">
+        &lt Статьи
+    </a>
+</div>
+<h1>
+    Решение типичных задач во время программирования алгоритма
+</h1>
+<p>
+    В процессе написания каждого из ваших роботов, вам будут встречаться однотипные задачи.
+    Чтобы помочь вам быстрее освоиться, предлагаю вам ознакомится с библиотекой
+    содержащей решения для большинства типичных задач.
+</p>
+<pre><code class="javascript">var warriorLib = {
+    comvarBitLength : 32,
+    emptyComvar : "00000000000000000000000000000000",
+    clockwiseSearch : [0,1,2,5,8,7,6,3],
+    counterclockwiseSearch : [3,6,7,8,5,2,1,0],
+    neighborOffsets : {
+        0 : [-1,-1],
+        1 : [0,-1],
+        2 : [1,-1],
+        3 : [-1,0],
+        5 : [1,0],
+        6 : [-1,1],
+        7 : [0,1],
+        8 : [1,1]
+    },
+    neighborSheet : {
+        0 : [1,3],
+        1 : [0,2],
+        2 : [1,5],
+        3 : [0,6],
+        5 : [2,8],
+        6 : [3,7],
+        7 : [6,8],
+        8 : [5,7]
+    },
+    getNeighborIndexes : function (index) {
+        return [].concat(this.neighborSheet[String(index)]);
+    },
+    getOffsetOfNeighborByIndex : function (index) {
+        return [].concat(this.neighborOffsets[String(index)]);
+    },
+    getIsStartCellOnFirstStep : function (comvarSet) {
+        comvarSet = [].concat(comvarSet);
+        if (comvarSet.splice(4, 1)[0] === this.emptyComvar) {
+            comvarSet = comvarSet.join("");
+            return comvarSet.length === 8 && !parseInt(comvarSet, 10);
+        } else {
+            return false;
+        }
+    },
+    getBitNumber : function (boolean) {
+        return Number(boolean);
+    },
+    getComvarCompletion : function (comvarPart) {
+        return this.emptyComvar.slice(0, this.comvarBitLength - comvarPart.length);
+    },
+    completeComvar : function (comvarPart) {
+        return this.getComvarCompletion(comvarPart) + comvarPart;
+    },
+    getIsEmptyComvar : function (testComvar) {
+        return this.emptyComvar === testComvar;
+    },
+    getSignedNumberFromBinary : function (comvar, startIndex, countOfBits) {
+        var num = parseInt(comvar.slice(startIndex, startIndex + 1), 10);
+        return (num ? -1 : 1) * this.getNumberFromBinary(comvar, startIndex + 1, countOfBits - 1);
+    },
+    getNumberFromBinary : function (comvar, startIndex, countOfBits) {
+        var num = comvar.slice(startIndex, startIndex + countOfBits);
+        num = parseInt(num, 2);
+        return num;
+    },
+    toSignedBinaryNumber : function (num, countOfBits) {
+        var singBit;
+        if (num < 0) {
+            singBit = '1';
+        } else {
+            singBit = '0';
+        }
+        num = Math.abs(num);
+        return singBit + this.toBinaryNumber(num, countOfBits - 1);
+    },
+    toBinaryNumber : function (num, countOfBits) {
+        return Number(num + Math.pow(2, countOfBits + 1)).toString(2).slice(-countOfBits);
+    }
+};</code></pre>
+<p>
+    emptyComvar — значение пустой переменной общения, то есть переменной
+    по средствам, которой осуществляется общение между ячейками.
+    Вновь захваченные ячейки на предыдущем ходу имеют такое значение.
+</p>
+<p>
+    clockwiseSearch — направление обхода соседей по часовой стрелке.
+    В списке индексы соответствующих ячеек.
+</p>
+<p>
+    counterclockwiseSearch — направление обхода соседей против часовой стрелки.
+    В списке индексы соответствующих ячеек.
+</p>
+<p>
+    neighborOffsets — смещение соседей, относительно текущей ячейки в зависимости от
+    индекса.
+</p>
+<p>
+    getNeighborIndexes — получить индексы соседей, что являются соседями одновременно
+    к текущей ячейки и к целевой.
+</p>
+<p>
+    getOffsetOfNeighborByIndex — получить смещение ячейки-соседа по её индексу.
+</p>
+<p>
+    getIsStartCellOnFirstStep — получить признак того, что обрабатывается начальная ячейка
+    на первом шаге.
+</p>
+<p>
+    getBitNumber — получить номер бинарный 0 или 1, по входному параметру.
+</p>
+<p>
+    getComvarCompletion — получить по части переменной общения, завершение для нее,
+    то есть строку нулей в сложении, с которой общая длина части переменной будет
+    32 символа, что нужно для возврата корректного значения функцией.
+</p>
+<p>
+    completeComvar — завершить строку переменой общения до 32 символов нулями справа,
+    чтобы она соответствовала корректному значению.
+</p>
+<p>
+    getIsEmptyComvar — получить признак того, что переданное значение переменной общения пустое.
+</p>
+<p>
+    getSignedNumberFromBinary — получить число со знаком из части переменной общения.
+    Первый параметр — переменная общения.
+    Второй параметр — индекс, начиная с которого, мы извлекаем переменную.
+    Третий параметр — длина числа в двоичном виде.
+    Возвращает привычный в программировании экземпляр Number.
+    Такое число должно быть предварительно создано методом toSignedBinaryNumber.
+</p>
+<p>
+    getNumberFromBinary — получить положительное число из части переменной общения.
+    Первый параметр — переменная общения.
+    Второй параметр — индекс, начиная с которого, мы извлекаем переменную.
+    Третий параметр — длина числа в двоичном виде.
+</p>
+<p>
+    toSignedBinaryNumber — получить строку бинарного представления числа со знаком.
+    Первый параметр — исходное число.
+    Второй параметр — количество битов, выделенное под запись числа.
+</p>
+<p>
+    toSignedBinaryNumber — получить строку бинарного представления положительного числа без
+    сохранения знака.
+    Первый параметр — исходное число.
+    Второй параметр — количество битов, выделенное под запись числа.
+</p>
+<p>
+    Вы можете скопировать эту библиотеку в алгоритм вашего робота целиком или частично,
+    т.е. только то, что необходимо.
+</p>
+<p>
+    Продуктивного вам программирования.
+</p>

@@ -1,0 +1,259 @@
+
+<div class="page-data" style="display: none;" data-page-info='{"title": "Профайл"}'></div>
+
+<% if (user) { %>
+
+<h1>
+    <%= user.username -%>
+</h1>
+<p class="last-block">
+    Почта: <%= user.email -%><br />
+    Видна только вам.
+</p>
+<!--
+    <form class="form-about" name="form-about">
+        <h3>О пользователе</h3>
+        <textarea name="description"></textarea><br />
+        <br />200 символов
+    </form><br />
+-->
+
+<form method="post" action="/password-change" name="form-change-password" class="form-change-password">
+    <h2>Изменить пароль</h2>
+    <label>
+        <span>Текущий пароль</span>
+        <input name="username" type="hidden" value="<%= user.username -%>" />
+        <input name="current-password" type="password" />
+    </label>
+    <div class="form-change-password__current-password-error error-hint">
+        <div class="form-change-password__current-password-error-required">
+            Обязательно для заполнения.
+        </div>
+    </div>
+
+    <label>
+        <span>Новый пароль</span>
+        <input name="password" type="password" />
+    </label>
+
+    <div class="form-change-password__password-error error-hint">
+        <div class="form-change-password__password-error-required">
+            Обязательно для заполнения.
+        </div>
+        <div class="form-change-password__password-error-too-short">
+            Длина пароля должна быть не менее <%= fieldLengths.password.min -%> символов.
+        </div>
+        <div class="form-change-password__password-error-too-long">
+            Длина должна быть не более <%= fieldLengths.password.max -%> символов.
+        </div>
+        <div class="form-change-password__password-error-not-valid">
+            Пароль не валиден. Используйте символы <%= symbolSets.password -%>. Должен начинаться с буквы.
+        </div>
+    </div>
+    <label>
+        <span>Пожайлуста, повторите пароль</span>
+        <input name="password-confirm" type="password" />
+    </label>
+    <div class="form-change-password__password-confirm-error error-hint">
+        <div class="form-change-password__password-confirm-error-required">
+            Обязательно для заполнения.
+        </div>
+        <div class="form-change-password__password-confirm-error-too-short">
+            Длина пароля должна быть не менее <%= fieldLengths.password.min -%> символов.
+        </div>
+        <div class="form-change-password__password-confirm-error-too-long">
+            Длина должна быть не более <%= fieldLengths.password.max -%> символов.
+        </div>
+        <div class="form-change-password__password-confirm-error-not-valid">
+            Пароль не валиден. Используйте символы <%= symbolSets.password -%>. Должен начинаться с буквы.
+        </div>
+        <div class="form-change-password__password-confirm-error-wrong-password">
+            Неверный пароль. Пароль не изменен.
+        </div>
+    </div>
+    <div class="form-change-password__password-group-error error-hint">
+        <div class="form-change-password__password-group-error-do-not-match">
+            Пароли не совпадают.
+        </div>
+    </div>
+
+    <button type="submit">
+        Изменить пароль
+    </button>
+
+    <div class="form-change-password__form-error error-hint">
+        <div class="form-change-password__form-error-nocontent">
+            Нет соединения с интернетом. Восстановление неудачно.
+        </div>
+        <div class="form-change-password__form-error-error">
+            Ошибка во время отправки запроса. Восстановление неудачно.
+        </div>
+        <div class="form-change-password__form-error-abort">
+            Соединение было прервано. Восстановление неудачно.
+        </div>
+        <div class="form-change-password__form-error-parsererror">
+            Ошибка во время разбора ответа сервера.
+        </div>
+        <div class="form-change-password__form-error-timeout">
+            Истекло время ожидания ответа сервера.
+        </div>
+        <div class="form-change-password__form-error-server">
+            Произошла ошибка во время восстановления.
+        </div>
+        <div class="form-change-password__form-error-wrong-password">
+            Неправильный текущий пароль. Новый пароль не установлен.
+        </div>
+    </div>
+    <div class="form-change-password__success-message success-hint" style="display : none;">
+        Смена пароля прошла успешно.
+    </div>
+</form>
+
+<script type="text/javascript" src="/lib/fieldLengths.js"></script>
+<script type="text/javascript" src="/lib/validateRegulars.js"></script>
+<script type="text/javascript" src="/js/form-password-change.js"></script>
+
+
+
+<h2 class="new-block">Роботы</h2>
+<p class="form-change-password__description">
+    Допускаются файлы не более <%= maxWarriorSize -%> Кб. <br />
+    Сразу после того, как вы выберите робота, он будет загружен и проверен.<br />
+    Текущий робот, если он есть, будет заменен новым.
+    Доступно слотов: <%= dbLimits.userWarriorMaxCount -%>.
+</p>
+
+<div class="warrior-slots">
+<% for (var i = 0; i < dbLimits.userWarriorMaxCount; i += 1) { -%>
+<form action="/add-warrior/<%= i -%>" enctype="multipart/form-data" method="post" class="form-add-warrior" name="form-add-warrior-<%= i -%>">
+
+    <div class="btn-upload-box">
+        <button class="btn-upload form-add-warrior__title">
+            <% if (warriors[i]) { -%>
+                <span class="warrior-name">
+                    <%= warriors[i].name -%>
+                </span>
+                <span class="warrior-from-hint" style="display: none">
+                    <span class="warrior-from-hint-prefix">
+                        от
+                    </span>
+                    <span class="warrior-from-hint-date">
+                        <%= warriors[i].createTimeStamp -%>
+                    </span>
+                </span>
+            <% } else { -%>
+                <span class="warrior-name">
+                    Добавить робота
+                </span>
+                <span class="warrior-from-hint" style="display: none">
+                    <span class="warrior-from-hint-prefix">
+                        от
+                    </span>
+                    <span class="warrior-from-hint-date">
+                    </span>
+                </span>
+            <% } %>
+        </button>
+    </div>
+
+    <div class="form-add-warrior__success-message success-hint" style="display: none;">
+        Новый робот установлен.
+    </div>
+    <div class="form-add-warrior__error error-hint">
+
+        <div class="form-add-warrior__error-file-save-fail">
+            Сохранение файла прошло неудачно.
+        </div>
+        <div class="form-add-warrior__error-file-save-fail-too-long">
+            Сохранение файла прошло неудачно. Слишком большой файл.
+        </div>
+        <div class="form-add-warrior__error-not-working-program-text">
+            Программа робота не работает. Скорее всего, имеет синтаксические ошибки.
+        </div>
+        <div class="form-add-warrior__error-no-register-for-warrior">
+            Робот не зарегистрирован вызовом register.
+        </div>
+        <div class="form-add-warrior__error-warrior-has-not-name">
+            Робот не имеет второго параметра - name.
+        </div>
+        <div class="form-add-warrior__error-warrior-is-not-function">
+            Робот не является функцией.
+        </div>
+        <div class="form-add-warrior__error-warrior-name-is-not-valid">
+            Имя робота не валидно. Используёте следующие символы <%= symbolSets.warrior_name -%>,
+            начиная с латинского символа выбирая имя робота.
+        </div>
+        <div class="form-add-warrior__error-warrior-count-exceeded">
+            Превышено количество допустимых роботов на игрока.
+        </div>
+        <div class="form-add-warrior__error-warrior-save-failed">
+            Сохранение робота прошло неудачно.
+        </div>
+        <div class="form-add-warrior__error-warrior-name-already-in-use">
+            Робот с таким именем уже существует.
+        </div>
+        <div class="form-add-warrior__error-file-format-detected">
+            Формат файла не соответствует /^global.register\([\S\s]*\);$/.
+        </div>
+        <div class="form-add-warrior__error-eval-detected">
+            Использование eval запрещено.
+        </div>
+        <div class="form-add-warrior__error-new-function-detected">
+            Использование Function запрещено.
+        </div>
+        <div class="form-add-warrior__error-window-detected">
+            Обращение к window запрещено.
+        </div>
+        <div class="form-add-warrior__error-document-detected">
+            Обращение к document запрещено.
+        </div>
+        <div class="form-add-warrior__error-parent-detected">
+            Обращение к parent запрещено.
+        </div>
+        <div class="form-add-warrior__error-top-detected">
+            Обращение к top запрещено.
+        </div>
+        <div class="form-add-warrior__error-call-detected">
+            Обращение к call запрещено.
+        </div>
+        <div class="form-add-warrior__error-apply-detected">
+            Обращение к apply запрещено.
+        </div>
+        <div class="form-add-warrior__error-name-constructor-detected">
+            Обращение к constructor запрещено.
+        </div>
+        <div class="form-add-warrior__error-name-caller-detected">
+            Обращение к caller запрещено.
+        </div>
+        <div class="form-add-warrior__error-name-prototype-detected">
+            Обращение к prototype запрещено.
+        </div>
+        <div class="form-add-warrior__error-too-long-shoot-time-result">
+            Слишком долгое время выполнения выстрела.
+        </div>
+        <div class="form-add-warrior__error-not-valid-shoot-result">
+            Результат работы робота не валиден.
+        </div>
+        <div class="form-add-warrior__error-not-context-function-call">
+            Вызов функции или анонимной функции без контекста запрещен.
+            Вы можете привязать функцию к любому объекту-пустышке для прохождения
+            этой проверки.
+        </div>
+
+    </div>
+
+</form>
+
+<% } -%>
+</div>
+
+<div class="spacer h50"></div>
+
+<script type="text/javascript" src="/js/ajaxupload.3.5.js"></script>
+<script type="text/javascript" src="/js/form-add-warrior.js"></script>
+
+<% } else { -%>
+<p>
+    Вы не <a href="/<%= language -%>/login">авторизованы</a>.
+</p>
+<% } -%>

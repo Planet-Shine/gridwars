@@ -1,0 +1,12 @@
+<% layout('./layout/page') -%>
+<% var pageTitle = 'Статьи об игре Gridwars'; %>
+<% block('title', pageTitle) -%>
+<% block('keywords', 'обучение,анализ,творчество,создание,помощь,программирование') -%>
+<% block('description', 'Статьи о том, как запрограммировать хорошего робота для участия в битвах игры Gridwars.') -%>
+
+<%-partial('./partial/partial-page', {
+    'path'           : path,
+    'page'           : page,
+    'partialOptions' : partialOptions,
+    'title'          : pageTitle
+})%>

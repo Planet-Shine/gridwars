@@ -1,0 +1,147 @@
+
+<div class="page-data" style="display: none;" data-page-info='{"title": "Регистрация"}'></div>
+
+<% if (user) { %>
+
+<h2>Вы уже авторизованы.</h2>
+
+<% } else { %>
+<h1>Регистрация</h1>
+<form method="post" action="/register" class="form-register" name="form-register">
+    <label>
+        <span>E-mail</span>
+        <input type="text" name="email" />
+    </label>
+    <div class="form-register__email-error error-hint">
+        <div class="form-register__email-error-required">
+            Обязательно для заполнения.
+        </div>
+        <div class="form-register__email-error-not-valid">
+            E-mail не валидный.
+        </div>
+        <div class="form-register__email-error-already-exists">
+            Пользователь с таким e-mail уже существует.
+        </div>
+        <div class="form-register__email-error-too-long">
+            Длина e-mail должна быть не более <%= fieldLengths.email.max -%> символов.
+        </div>
+    </div>
+    <label>
+        <span>Имя</span>
+        <input type="text" name="username" />
+    </label>
+    <div class="form-register__username-error error-hint">
+        <div class="form-register__username-error-required">
+            Обязательно для заполнения.
+        </div>
+        <div class="form-register__username-error-not-valid">
+            Имя не валидно. Используйте символы <%= symbolSets.username -%>.
+        </div>
+        <div class="form-register__username-error-already-exists">
+            Пользователь с таким именем уже существует.
+        </div>
+        <div class="form-register__username-error-too-short">
+            Длина имени должна быть не менее <%= fieldLengths.username.min -%> символов.
+        </div>
+        <div class="form-register__username-error-too-long">
+            Длина должна быть не более <%= fieldLengths.username.max -%> символов.
+        </div>
+    </div>
+    <label>
+        <span>Пароль</span>
+        <input type="password" name="password" />
+    </label>
+    <div class="form-register__password-error error-hint">
+        <div class="form-register__password-error-required">
+            Обязательно для заполнения.
+        </div>
+        <div class="form-register__password-error-too-short">
+            Длина пароля должна быть не менее <%= fieldLengths.password.min -%> символов.
+        </div>
+        <div class="form-register__password-error-too-long">
+            Длина должна быть не более <%= fieldLengths.password.max -%> символов.
+        </div>
+        <div class="form-register__password-error-not-valid">
+            Пароль не валиден. Используйте символы <%= symbolSets.password -%>. Должен начинаться с буквы.
+        </div>
+    </div>
+    <label>
+        <span>Подтверждение пароля</span>
+        <input type="password" name="password-confirm" />
+    </label>
+    <div class="form-register__password-confirm-error error-hint">
+        <div class="form-register__password-confirm-error-required">
+            Обязательно для заполнения.
+        </div>
+        <div class="form-register__password-confirm-error-too-short">
+            Длина пароля должна быть не менее <%= fieldLengths.password.min -%> символов.
+        </div>
+        <div class="form-register__password-confirm-error-too-long">
+            Длина должна быть не более <%= fieldLengths.password.max -%> символов.
+        </div>
+        <div class="form-register__password-confirm-error-not-valid">
+            Пароль не валиден. Используйте символы <%= symbolSets.password -%>. Должен начинаться с буквы.
+        </div>
+    </div>
+    <div class="form-register__password-group-error error-hint">
+        <div class="form-register__password-group-error-do-not-match">
+            Пароли не совпадают.
+        </div>
+    </div>
+    <button type="submit">
+        Зарегистрироваться
+    </button>
+    <div class="form-register__error">
+        <div class="form-register__form-error-nocontent">
+            Нет соединения с интернетом. Регистрация неудачна.
+        </div>
+        <div class="form-register__form-error-error">
+            Ошибка во время отправки запроса. Регистрация неудачна.
+        </div>
+        <div class="form-register__form-error-abort">
+            Соединение было прервано. Регистрация неудачна.
+        </div>
+        <div class="form-register__form-error-parsererror">
+            Ошибка во время разбора ответа сервера.
+        </div>
+        <div class="form-register__form-error-timeout">
+            Истекло время ожидания ответа сервера.
+        </div>
+        <div class="form-register__form-error-server">
+            Произошла ошибка во время регистрации.
+            <div class="form-register__form-error-server-username-not-valid">
+                Имя пользователя не валидно. Используйте символы <%= symbolSets.username -%>.
+            </div>
+            <div class="form-register__form-error-server-password-not-valid">
+                Пароль не валидный. Используйте символы <%= symbolSets.password -%>. Должен начинаться с буквы.
+            </div>
+            <div class="form-register__form-error-server-email-not-valid">
+                E-mail не валидный.
+            </div>
+            <div class="form-register__form-error-server-username-already-exists">
+                Такое имя пользователя уже существует. Придумайте другое имя.
+            </div>
+            <div class="form-register__form-error-server-email-already-exists">
+                Пользователь с таким e-mail уже существует.
+            </div>
+            <div class="form-register__form-error-server-remove-record-fail">
+                Во время регистрации произошла ошибка.
+                Процесс удаления записанного пользователя завершился ошибкой.
+            </div>
+            <div class="form-register__form-error-server-mail-send-fail">
+                Отправка письма с подтверждением учетной записи прошла неудачно.
+            </div>
+        </div>
+    </div>
+    <div class="form-register__success-message success-hint" style="display:none;">
+        Вы зарегистрированы. На ваш e-mail отправлена ссылка для подтверждения регистрации.<br />
+        После активации учетной записи, вы сможете зайти на сайт.<br />
+        Через мгновение вы будите отправлены на главную страницу.
+    </div>
+</form>
+
+<script src="/lib/fieldLengths.js" type="text/javascript"></script>
+<script src="/lib/validateRegulars.js" type="text/javascript"></script>
+<script src="/js/from-register.js" type="text/javascript"></script>
+
+<% } %>

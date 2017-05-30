@@ -1,0 +1,35 @@
+
+<div class="page-data" style="display: none;" data-page-info='{"title": "Праметры боя игры"}'></div>
+
+<form class="form-battle-options" method="post" action="/battle" name="form-battle-options">
+    <h1>Праметры боя игры</h1>
+    <label class="form-battle-options__field-size">
+        <span>Размер поля</span>
+        <select name="field-size">
+            <option selected="selected" value="">Выберите размер</option>
+            <% for(var i = 0; i < battleOptions.fieldSizes.length; i++) {%>
+                <option value="<%= battleOptions.fieldSizes[i] -%>"><%= battleOptions.fieldSizes[i] -%></option>
+            <% } %>
+        </select>
+    </label>
+    <label><span>Роботы (до <%= battleOptions.maximumWarriorCount -%>)</span></label>
+    <div>
+        <div class="form-battle-options__warriors warrior-control">
+            <input placeholder="поиск" name="warrior-text" type="text" />
+            <select class="warrior-select" name="warrior">
+                <option selected="selected" value="">нет робота (выберите)</option>
+                <% for(var i1 = 0; i1 < partialOptions.warriors.length; i1++) {%>
+                    <option value="<%= partialOptions.warriors[i1].name -%>"><%= partialOptions.warriors[i1].name -%></option>
+                <% } %>
+            </select>
+        </div>
+    </div>
+
+    <button disabled="disabled" type="submit">
+        К бою!
+    </button>
+
+</form>
+
+<script type="text/javascript" src="/lib/battleOptions.js"></script>
+<script type="text/javascript" src="/js/form-battle-options.js"></script>

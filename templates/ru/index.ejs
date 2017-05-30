@@ -1,0 +1,12 @@
+<% layout('./layout/page') -%>
+<% var pageTitle = ''; %>
+<% block('title', pageTitle) -%>
+<% block('keywords', 'приветсвие,игра,исскуственный интеллект,Gridwars,ознакомление,инструктаж,сражение,битвы,AI,программирование, соревнование, соперничество') -%>
+<% block('description', 'Добро пожаловать на общедоступную арену искусственных интеллектов Gridwars. Здесь вы сможете принять участие в игре, разместить свою программу-робота и понаблюдать сражения других участников.') -%>
+
+<%-partial('./partial/partial-page', {
+    'path'           : path,
+    'page'           : page,
+    'partialOptions' : partialOptions,
+    'title'          : pageTitle
+})%>

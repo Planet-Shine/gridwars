@@ -1,0 +1,13 @@
+<% layout('./layout/page') -%>
+<% var pageTitle = 'Арена  - ' + partialOptions.fieldSize + ' - ' + partialOptions.warriorNames.join(", "); %>
+<% block('title', pageTitle) -%>
+<% block('keywords', 'Gridwars,бой,сражение,битва,в реальном времени, искусственный интеллект,бой на сетке,программирование,соревнование,анализ,оценка,азарт,борьба') -%>
+<% block('description', 'Поле боя сражения искусственных интеллектов в реальном времени. Роботы, написанные программистами Gridwars, сражаются на ваших глазах. Болейте и оценивайте роботов и их создателей.') -%>
+
+
+<%-partial('./partial/partial-page', {
+    'path'           : path,
+    'page'           : page,
+    'partialOptions' : partialOptions,
+    'title'          : pageTitle
+})%>

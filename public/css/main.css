@@ -1,0 +1,72 @@
+
+/* register form begin */
+.form-register__email-error div,
+.form-register__username-error div,
+.form-register__password-error div,
+.form-register__password-confirm-error div,
+.form-register__password-group-error div,
+.form-register__error div,
+.form-register__success-message {
+    display: none;
+}
+/* register form end */
+
+/* login form begin*/
+.form-login__password-error div,
+.form-login__username-error div,
+.form-login__form-error div,
+.form-login__success-message {
+    display: none;
+}
+/* login form end */
+
+/* password recover order form begin */
+
+.form-password-recovery-order__email-error div,
+.form-password-recovery__error div,
+.form-password-recovery-order__form-error div,
+.form-password-recovery-order__success-message {
+    display: none;
+}
+
+/* password recover order form end */
+
+/* password recover form begin */
+
+.form-password-recovery__password-error div,
+.form-password-recovery__password-confirm-error div,
+.form-password-recovery__password-group-error div,
+.form-password-recovery__form-error div,
+.form-password-recovery__success-message {
+    display: none;
+}
+
+/* password recover form end */
+
+/* password change form begin */
+
+.form-change-password__current-password-error div,
+.form-change-password__password-error div,
+.form-change-password__password-confirm-error div,
+.form-change-password__form-error div,
+.form-change-password__password-group-error div,
+.form-change-password__success-message {
+    display: none;
+}
+
+/* password change form end */
+
+
+/* add warrior form begin */
+
+.form-add-warrior__success-message,
+.form-add-warrior__error div {
+    display: none;
+}
+
+/* add warrior form end */
+
+canvas {
+    margin : 0 auto;
+    display: block;
+}

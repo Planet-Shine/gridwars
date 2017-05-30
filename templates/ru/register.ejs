@@ -1,0 +1,13 @@
+<% layout('./layout/page') -%>
+<% var pageTitle = 'Регистрация'; %>
+<% block('title', pageTitle) -%>
+<% block('keywords', 'регистрация,Gridwars,новый пользователь,логин,имя,пароль,доступ,права,возможности,добавление робота') -%>
+<% block('description', 'Создание нового пользователя Gridwars. Создайте нового пользователя и получите доступ к добавлению роботов и участию в сражениях. Введите почту, имя и пароль.') -%>
+
+
+<%-partial('./partial/partial-page', {
+    'path'           : path,
+    'page'           : page,
+    'partialOptions' : partialOptions,
+    'title'          : pageTitle
+})%>

@@ -1,0 +1,13 @@
+<% layout('./layout/page') -%>
+<% var pageTitle = 'Профайл'; %>
+<% block('title', pageTitle) -%>
+<% block('keywords', 'профайл, инфомация,пользователь,участник,смена пароля,загрузка персонажа, загрузка робота') -%>
+<% block('description', 'Информация о пользователе, который принимает участие в соревнованиях Gridwars. Возможность сменить пароль и загрузить или обновить новых роботов Gridwars.') -%>
+
+
+<%-partial('./partial/partial-page', {
+    'path'           : path,
+    'page'           : page,
+    'partialOptions' : partialOptions,
+    'title'          : pageTitle
+})%>

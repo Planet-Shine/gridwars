@@ -1,0 +1,41 @@
+{
+    "port"     : 3000,
+    "maxWarriorSize" : 64,
+    "fileUploadOfficialBytes" : 201,
+    "mongoose" : {
+        "uri"     : "mongodb://localhost/gridwarsweb",
+        "options" : {
+            "server" : {
+                "socketOptions" : {
+                    "keepAlive" : 1
+                }
+            }
+        }
+    },
+    "session" : {
+        "secret" : "RQvWUYFuiNffUYrUTbld",
+        "key" : "sid",
+        "cookie" : {
+            "path"     : "/",
+            "httpOnly" : true,
+            "maxAge"   : null
+        }
+    },
+    "broadcastEmail" : {
+        "transportSets" : "smtp://account-bot%40grid-wars.com:yq80kw41bcrp@grid-wars.com",
+        "host"          : "grid-wars.com",
+        "port"          : 465,
+        "secure"        : true,
+        "useralias"     : "Робот grid-wars.com.",
+        "service"       : "Gmail",
+        "user"          : "account-bot@grid-wars.com",
+        "email"         : "account-bot@grid-wars.com",
+        "password"      : "yq80kw41bcrp"
+    },
+    "sitename"        : "grid-wars.com",
+    "host"            : "http://127.0.0.1:3000",
+    "emailVerifyPath" : "/ru/email-verification/",
+    "passwordRecoveryPath"     : "/ru/password-recovery/",
+    "emailVerifyHashSalt"      : "qazxswedcvfrtgbnhyujm",
+    "passwordRecoveryHashSalt" : "q1a2z3x4s5w6e7d8c9v0f1r2t3g4b5n6h7y8u9j0m"
+}

@@ -1,0 +1,12 @@
+<% layout('./../layout/page') -%>
+<% var pageTitle = 'Вопросы и ответы'; %>
+<% block('title', pageTitle) -%>
+<% block('keywords', 'вопросы,ответы,программирование,создание,разработка,помощь') -%>
+<% block('description', 'Вопросы и ответы о программировании робота Gridwars. Ознакомитесь с вопросами и задайте свой вопрос.') -%>
+
+<%-partial('./../partial/partial-page', {
+    'path'           : path,
+    'page'           : page,
+    'partialOptions' : partialOptions,
+    'title'          : pageTitle
+})%>

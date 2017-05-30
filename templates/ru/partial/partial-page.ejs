@@ -1,0 +1,80 @@
+
+<div class="page-content" data-href="/partial<%= path -%>">
+    <%- partial(page, partialOptions) %>
+    <div class="social-buttons">
+
+        <div class="social-button">
+
+            <!-- Поместите этот тег туда, где должна отображаться кнопка +1. -->
+            <div class="g-plusone" data-size="medium" data-annotation="none" data-href="<%= siteHost -%><%= path -%>"></div>
+
+            <!-- Поместите этот тег за последним тегом виджета кнопка +1. -->
+            <script type="text/javascript">
+                window.___gcfg = {lang: 'ru'};
+
+                (function() {
+                    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+                    po.src = 'https://apis.google.com/js/platform.js';
+                    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+                })();
+            </script>
+
+        </div>
+
+
+
+        <div class="social-button">
+            <a href="javascript:void(0);"
+               class="twitter-share-button twitter-share-button<%= PAGE_GUID -%>"
+               target="_blank"></a>
+            <script>
+                setTimeout(function () {
+                    $('.twitter-share-button<%= PAGE_GUID -%>').attr(
+                            'href',
+                            "https://twitter.com/intent/tweet?original_referer=<%= siteHost -%><%= path -%>&ref_src=twsrc%5Etfw&text=" + encodeURIComponent($.trim($('title').text())) + "&tw_p=tweetbutton&url=<%= siteHost -%><%= path -%>"
+                    );
+                }, 200);
+            </script>
+        </div>
+
+        <div class="social-button">
+            <div id="ok_shareWidget<%= PAGE_GUID -%>"></div>
+            <script>
+                !function (d, id, did, st) {
+                    var js = d.createElement("script");
+                    js.src = "https://connect.ok.ru/connect.js";
+                    js.onload = js.onreadystatechange = function () {
+                        if (!this.readyState || this.readyState == "loaded" || this.readyState == "complete") {
+                            if (!this.executed) {
+                                this.executed = true;
+                                setTimeout(function () {
+                                    OK.CONNECT.insertShareWidget(id,did,st);
+                                }, 0);
+                            }
+                        }};
+                    d.documentElement.appendChild(js);
+                }(document,"ok_shareWidget<%= PAGE_GUID -%>",document.URL,"{width:25,height:30,st:'rounded',sz:20,nt:1,nc:1}");
+            </script>
+        </div>
+
+        <div class="social-button">
+            <script type="text/javascript">
+                VK.init({apiId: 5655400, onlyWidgets: true});
+            </script>
+            <!-- Put this div tag to the place, where the Like block will be -->
+            <div id="vk_like<%= PAGE_GUID -%>"></div>
+            <script type="text/javascript">
+                VK.Widgets.Like("vk_like<%= PAGE_GUID -%>", {type: "mini", verb: 1});
+            </script>
+        </div>
+
+        <% if (isCommentPage) { -%>
+
+            <div class="social-button" style="position: relative; top: 25px;">
+                <div class="fb-like" data-href="<%= siteHost -%><%= path -%>" data-width="22" data-layout="box_count" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+            </div>
+
+        <% } -%>
+
+    </div>
+</div>

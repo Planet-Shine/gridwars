@@ -1,0 +1,12 @@
+<% layout('./../layout/page') -%>
+<% var pageTitle = 'Программирование алгоритма искусственного интеллекта робота'; %>
+<% block('title', pageTitle) -%>
+<% block('keywords', 'создание,программирование,робот,искусственный интеллект,обучение') -%>
+<% block('description', 'Информация о том, как программировать робота Gridwars для успешного выступления в битве с другими роботами. Обучение прохождения проверки на сервере и успешного участия в игре.') -%>
+
+<%-partial('./../partial/partial-page', {
+    'path'           : path,
+    'page'           : page,
+    'partialOptions' : partialOptions,
+    'title'          : pageTitle
+})%>

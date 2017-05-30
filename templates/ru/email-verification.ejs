@@ -1,0 +1,13 @@
+<% layout('./layout/page') -%>
+<% var pageTitle = 'Подтверждение учетной записи'; %>
+<% block('title', pageTitle) -%>
+<% block('keywords', 'подтверждение,пользователь,email,авторизация, доступ возможности, права') -%>
+<% block('description', 'Подтверждение email.') -%>
+
+
+<%-partial('./partial/partial-page', {
+    'path'           : path,
+    'page'           : page,
+    'partialOptions' : partialOptions,
+    'title'          : pageTitle
+})%>

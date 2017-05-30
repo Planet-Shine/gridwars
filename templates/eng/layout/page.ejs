@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title><%=blocks.title%></title>
+
+    <script src="/vendor/bower_components/jquery/dist/jquery.js"></script>
+    <script src="/js/js.js"></script>
+    <script src="/js/partial-load.js"></script>
+
+</head>
+<body>
+<menu>
+    <ul>
+        <li>
+            <a href="/page1">page 1</a>
+        </li>
+    </ul>
+</menu>
+
+<section class="container">
+    <h1><%=blocks.title%></h1>
+    <div class="page-loader" style="display: none; width: 200px; height: 200px; background: red;"></div>
+    <%- body -%>
+</section>
+
+</body>
+</html>

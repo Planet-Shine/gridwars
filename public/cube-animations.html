@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Тестирование кубических анимаций</title>
+    <meta charset="utf-8" />
+    <script src="/vendor/bower_components/jquery/dist/jquery.js" type="text/javascript"></script>
+    <script src="/vendor/bower_components/underscore/underscore.js" type="text/javascript"></script>
+    <script src="/js/cube-animations.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(function () {
+            var options = {
+                'cellSpeed' : 4,
+                'fps' : 30,
+                'speed' : 200,
+                'container' : $("#c1"),
+                'subContainer' : $("#c2"),
+                'from' : 'left',
+                'to' : 'right',
+                'size' : 50,
+                'padding' : 4,
+                'lineFrom' : 0.5,
+                'lineTo' : 0.75,
+                'align' : 'bottom',
+                'color' : "#ff0000"
+            };
+            $cube.lineStream(options);
+        });
+        $(function () {
+            var options = {
+                'cellSpeed' : 4,
+                'fps' : 30,
+                'speed' : 200,
+                'container' : $("#c3"),
+                'subContainer' : $("#c4"),
+                'from' : 'right',
+                'to' : 'left',
+                'size' : 50,
+                'padding' : 4,
+                'lineFrom' : 0.5,
+                'lineTo' : 0.75,
+                'align' : 'bottom',
+                'color' : "#00ff00"
+            };
+            $cube.lineStream(options);
+        });
+        $(function () {
+            var options = {
+                'cellSpeed'             : 10,
+                'possibleCountOfBubble' : 20,
+                'bubbleSpawnIteration'  : 4,
+                'fps'                   : 30,
+                'container'             : $("#c5"),
+                'size'                  : 10,
+                'padding'               : 4,
+                'lineFrom'              : 0.7,
+                'lineTo'                : 1
+            };
+            $cube.bubbling(options);
+        });
+    </script>
+</head>
+<body style="margin: 0; padding: 0;">
+
+<div id="c1" style="position: relative; width:600px;height:600px;overflow: hidden;">
+    <div id="c2"  style="position: relative; width:600px;height:600px;">
+
+    </div>
+</div>
+
+<div id="c3" style="position: relative; width:600px;height:600px;overflow: hidden;">
+    <div id="c4"  style="position: relative; width:600px;height:600px;">
+
+    </div>
+</div>
+
+<div id="c5" style="position: relative; width:600px;height:600px;overflow: hidden;">
+
+</div>
+
+</body>
+</html>
